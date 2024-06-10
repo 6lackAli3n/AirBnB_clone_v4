@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+"""
+This module defines views for Amenity objects that handle
+all default RESTFul API actions:
+- Retrieves the list of all Amenity objects: GET /api/v1/amenities
+- Retrieves a specific Amenity object: GET /api/v1/amenities/<amenity_id>
+- Deletes a specific Amenity object: DELETE /api/v1/amenities/<amenity_id>
+- Creates a new Amenity: POST /api/v1/amenities
+- Updates an existing Amenity: PUT /api/v1/amenities/<amenity_id>
+"""
 from api.v1.views import app_views
 from models import storage
 from models.amenity import Amenity
