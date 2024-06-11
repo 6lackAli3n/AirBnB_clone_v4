@@ -8,7 +8,7 @@ blueprints and handlers.
 from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
-import os import getenv
+from os import getenv
 from flask_cors import CORS
 
 
