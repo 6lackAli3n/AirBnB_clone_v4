@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 This module defines views for Amenity objects that handle
 all default RESTFul API actions:
