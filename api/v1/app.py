@@ -1,36 +1,46 @@
 #!/usr/bin/python3
 """
-This module contains the main Flask application instance.
-It sets up the application and registers the necessary
-blueprints and handlers.
+app
 """
 
 from flask import Flask, jsonify
-from models import storage
-from api.v1.views import app_views
-from os import getenv
 from flask_cors import CORS
+from os import getenv
+
+from api.v1.views import app_views
+from models import storage
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+
 app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
-def teardown_db(exception):
-    """Close the storage on teardown"""
+def teardown(exception):
+    """
+    teardown function
+    """
     storage.close()
 
 
 @app.errorhandler(404)
-def not_found(error):
-    """Handler for 404 errors that returns a
-    JSON-formatted 404 status code response"""
-    return jsonify({"error": "Not found"}), 404
+def handle_404(exception):
+    """
+    handles 404 error
+    :return: returns 404 json
+    """
+    data = {
+            "error": "Not found"
+            }
+
+    resp = jsonify(data)
+    resp.status_code = 404
+
+    return(resp)
 
 
 if __name__ == "__main__":
-    host = getenv('HBNB_API_HOST', '0.0.0.0')
-    port = int(getenv('HBNB_API_PORT', 5000))
-    app.run(host=host, port=port, threaded=True)
+    app.run(getenv("HBNB_API_HOST"), getenv("HBNB_API_PORT"))
