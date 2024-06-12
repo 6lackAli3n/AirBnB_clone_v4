@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+This module provides endpoints for the status and statistics of the API.
+"""
+
 from flask import jsonify
 from api.v1.views import app_views
 from models import storage
